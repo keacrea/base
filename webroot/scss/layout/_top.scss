@@ -1,0 +1,11 @@
+.top{
+    &__content{
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+    &__logo{
+        padding: 5px;
+    }
+}

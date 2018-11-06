@@ -1,0 +1,1 @@
+<?phpnamespace App\View\Helper;use Cake\View\Helper;class TypeHelper extends Helper {	    public function showType($types,$value){        foreach($types as $k=>$v){            if($value == $k){                return  ucfirst($v);            }        }        return null;    }}

@@ -1,0 +1,27 @@
+.header{
+    min-height: 100px;
+    color: $primary-color;
+    background-color: $light-gray;
+    &__chapo{
+
+    }
+    &__content{
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+
+
+.ariane{
+    border-bottom: 1px solid $light-gray;
+}
+
+.breadcrumbs{
+    margin: 0;
+    padding: 5px 0;
+}

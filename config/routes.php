@@ -78,12 +78,17 @@ Router::scope('/', function (RouteBuilder $routes) {
         ])
     ;
 
-
     /**
-     * Pages Contact
+     * PAGES CONTACT
      */
     $routes->connect('contactez-nous', ['controller' => 'Contacts', 'action' => 'index']);
+    $routes->connect('confirmation-demande-contact', ['controller' => 'Contacts', 'action' => 'confirm']);
 
+
+    /**
+     *  SITEMAP
+     */
+    $routes->connect('/sitemap', ['controller' => 'Sitemaps', 'action' => 'index', 'ext' => 'xml']);
 
     /**
      * Connect catchall routes for all controllers.

@@ -1,6 +1,6 @@
 {
     "name": "keacrea/base",
-    "description": "Test site base Keacrea",
+    "description": "Base sites Keacrea",
     "type": "project",
     "license": "MIT",
     "require": {

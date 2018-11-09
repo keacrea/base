@@ -34,9 +34,10 @@ $this->Form->setTemplates($myTemplates);
                 <?= $this->Flash->render(); ?>
                 <div class="form__content">
                     <div class="grid-x align-center">
-                        <div class="small-12 medium-11 large-10 cell">
+                        <div class="small-12 medium-10 large-8 cell">
                             <div class="grid-x grid-margin-x">
-                                <fieldset class="large-12 cell">
+                                <div class="small-12 large-4 cell"></div>
+                                <fieldset class="small-12 large-8 cell">
                                     <?= $this->Form->control('civility', ['error' => false, 'label' => false, 'type' => 'radio', 'options' => ['1' => 'Monsieur', '2' => 'Madame'], 'default' => '2']); ?>
                                 </fieldset>
                                 <div class="small-12 large-4  cell">
@@ -78,12 +79,9 @@ $this->Form->setTemplates($myTemplates);
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
-                <br>
                 <?= $this->Form->end(); ?>
             </form>
 

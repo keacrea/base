@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e1ab0412e3bd76ec2065e3cc93d2e1b",
+    "content-hash": "8c302441cbfb093d5b28158eb00ca75d",
     "packages": [
         {
             "name": "aura/intl",
@@ -681,6 +681,63 @@
                 "php mobile detect"
             ],
             "time": "2018-09-01T15:05:15+00:00"
+        },
+        {
+            "name": "muffin/tokenize",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/UseMuffin/Tokenize.git",
+                "reference": "a7ecf4114782abe12b0ab36e8a32504428fe91ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/UseMuffin/Tokenize/zipball/a7ecf4114782abe12b0ab36e8a32504428fe91ec",
+                "reference": "a7ecf4114782abe12b0ab36e8a32504428fe91ec",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^3.5"
+            },
+            "require-dev": {
+                "cakephp/cakephp-codesniffer": "^3.0",
+                "cakephp/migrations": "^1.0",
+                "phpunit/phpunit": "^5.7.14|^6.0"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Muffin\\Tokenize\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jad Bitar",
+                    "homepage": "http://jadb.io",
+                    "role": "Author"
+                },
+                {
+                    "name": "ADmad",
+                    "homepage": "https://github.com/ADmad",
+                    "role": "Author"
+                },
+                {
+                    "name": "Others",
+                    "homepage": "https://github.com/usemuffin/tokenize/graphs/contributors"
+                }
+            ],
+            "description": "Security Tokens",
+            "homepage": "https://github.com/usemuffin/tokenize",
+            "keywords": [
+                "cakephp",
+                "muffin",
+                "tokenize"
+            ],
+            "time": "2018-05-14T16:05:09+00:00"
         },
         {
             "name": "phpoffice/phpspreadsheet",

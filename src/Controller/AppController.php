@@ -54,9 +54,10 @@ class AppController extends Controller
             'authorize' => ['Controller'], // Ajout de cette ligne
             'authError' => 'Vous n\'êtes pas autorisé à accéder à cette page',
             'authenticate' => [
-                'Form' => [
-                    'fields' => ['username' => 'mail']
+                'all' => [
+                    'fields' => ['username' => 'email', 'password' => 'password'],
                 ],
+                'Form'
             ],
             'loginAction' => [
                 'controller' => 'Users',

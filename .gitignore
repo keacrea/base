@@ -7,6 +7,8 @@
 /vendor/*
 /webroot/images/*
 /webroot/thumbs/*
+/webroot/bower_components/*
+/webroot/node_modules/*
 
 # OS generated files #
 ######################

@@ -45,6 +45,21 @@ class UserMailer extends Mailer
     }
 
 
+    public function forgotPassword($email, $user, $token)
+    {
+
+        $this
+            ->setFrom([$email => 'Nom entreprise'])
+            ->setTo($email)
+            ->setSubject('Mot de passe oublié')
+            ->setTemplate('admin/forgot', 'default')
+            ->setEmailFormat('html')
+            ->setViewVars([
+                'token' => $token,
+            ])
+        ;
+
+    }
 
 
 }

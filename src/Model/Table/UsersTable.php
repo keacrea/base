@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use App\Model\Table\Traits\TokenFinderTrait;
 
 /**
  * Users Model
@@ -23,6 +24,8 @@ use Cake\Validation\Validator;
 class UsersTable extends Table
 {
 
+    use TokenFinderTrait;
+
     /**
      * Initialize method
      *
@@ -38,6 +41,8 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Muffin/Tokenize.Tokenize');
+
     }
 
     /**
@@ -51,9 +56,9 @@ class UsersTable extends Table
 
         $validator
             ->notEmpty('name','Merci de renseigner votre nom')
-            ->requirePresence('mail', 'create')
-            ->notEmpty('mail','Merci de renseigner une adresse email')
-            ->add('mail', 'verif-mail', [
+            ->requirePresence('email', 'create')
+            ->notEmpty('email','Merci de renseigner une adresse email')
+            ->add('email', 'verif-mail', [
                 'rule' => ['email', true],
                 'message' => __('Merci de verifier votre adresse email')
             ]);
@@ -80,7 +85,7 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['mail'],'Cet email existe déjà'));
+        $rules->add($rules->isUnique(['email'],'Cet email existe déjà'));
 
         return $rules;
     }

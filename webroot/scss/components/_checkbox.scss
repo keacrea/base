@@ -1,0 +1,78 @@
+/* Cachons la case à cocher */
+[type="checkbox"]:not(:checked),
+[type="radio"]:not(:checked),
+[type="checkbox"]:checked,
+[type="radio"]:checked {
+    position: absolute;
+    left: -9999px;
+    & + label{
+        margin: 0 0 10px 0;
+        position: relative; /* permet de positionner les pseudo-éléments */
+        padding-left: 35px; /* fait un peu d'espace pour notre case à venir */
+        cursor: pointer;    /* affiche un curseur adapté */
+        &:before{
+            content: '';
+            position: absolute;
+            left:0; top: 2px;
+            width: 20px; height: 20px; /* dim. de la case */
+            border: 1px solid $medium-gray;
+            border-radius: 3px; /* angles arrondis */
+            background-color: $white;
+        }
+        &:after{
+            content: '\f00c';
+            font-family: 'Font Awesome\ 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 3px; left: 2px;
+            font-size: rem-calc(17);
+            color: $primary-color;
+
+            transition: all .2s; /* on prévoit une animation */
+        }
+    }
+}
+
+/* Aspect si "pas cochée" */
+[type="checkbox"]:not(:checked) + label:after,
+[type="radio"]:not(:checked) + label:after{
+    opacity: 0; /* coche invisible */
+    transform: scale(0); /* mise à l'échelle à 0 */
+}
+/* Aspect si "cochée" */
+[type="checkbox"]:checked + label:after,
+[type="checkbox"]:checked + label:after {
+    opacity: 1; /* coche opaque */
+    transform: scale(1); /* mise à l'échelle 1:1 */
+}
+
+/* Cachons la case à cocher */
+[type="radio"]:not(:checked),
+[type="radio"]:checked{
+    & + label{
+        @include breakpoint(small only){
+            margin: 0 20px 10px 0;
+        }
+        margin: 0 20px 5px 0;
+        &:before{
+            content: '';
+            position: absolute;
+            left: 2px; top: 5px;
+            width: 12px; height: 12px; /* dim. de la case */
+            border: 1px solid $medium-gray;
+            border-radius: 20px; /* angles arrondis */
+            background-color: $white;
+        }
+        &:after{
+            content: '';
+            position: absolute;
+            top: 7px;
+            left: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 20px;
+            background-color: $primary-color;
+            transition: all .2s; /* on prévoit une animation */
+        }
+    }
+}

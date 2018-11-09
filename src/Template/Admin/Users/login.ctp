@@ -22,7 +22,7 @@ $this->assign('page_title', 'Espace d\'administration');
                         'novalidate'=>true,
                         'autocomplete'=>'off']);?>
 
-                    <?= $this->Form->control('mail', ['label'=>'Adresse email', 'class' => 'radius']);?>
+                    <?= $this->Form->control('email', ['label'=>'Adresse email', 'class' => 'radius']);?>
                     <?= $this->Form->control('password', ['label'=>'Mot de passe', 'class' => 'radius']);?>
                 </div>
             </div>

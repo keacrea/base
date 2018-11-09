@@ -9,7 +9,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $name
- * @property string $mail
+ * @property string $email
  * @property string $password
  * @property string $token
  * @property \Cake\I18n\FrozenTime $created
@@ -18,6 +18,8 @@ use Cake\ORM\Entity;
  */
 class User extends Entity
 {
+
+    use \App\Model\Entity\Traits\PasswordHashingTrait;
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -30,7 +32,7 @@ class User extends Entity
      */
     protected $_accessible = [
         'name' => true,
-        'mail' => true,
+        'email' => true,
         'password' => true,
         'token' => true,
         'created' => true,
@@ -48,8 +50,5 @@ class User extends Entity
         'token'
     ];
 
-    protected function _setPassword($password){
-        return (new DefaultPasswordHasher)->hash($password);
-    }
 
 }

@@ -20,7 +20,7 @@
                         <thead>
                         <tr>
                             <th><?= $this->Paginator->sort('name','Nom');?></th>
-                            <th><?= $this->Paginator->sort('mail','Email');?></th>
+                            <th><?= $this->Paginator->sort('email','Email');?></th>
                             <th class="text-center">Action</th>
                         </tr>
                         </thead>
@@ -42,7 +42,7 @@
                         <?php foreach($users as $user): ?>
                             <tr>
                                 <td><?= $user->name;?></td>
-                                <td><?= $user->mail;?></td>
+                                <td><?= $user->email;?></td>
                                 <td class="text-center">
                                     <?php if(($this->request->getSession()->read('Auth.User.id') == $user->id) || $this->request->getSession()->read('Auth.User.role') == 'superadmin'):?>
                                     <?= $this->Html->link(null,

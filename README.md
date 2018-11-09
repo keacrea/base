@@ -49,3 +49,18 @@ configuration relevant for your application.
 The app skeleton uses a subset of [Foundation](http://foundation.zurb.com/) (v5) CSS
 framework by default. You can, however, replace it with any other library or
 custom styles.
+
+## A faire
+
+Lancer la commende suivante pour créer un user :
+
+    bin/cake user --username-field email
+
+Lancer ensuite 
+    
+    bin/cake plugin load Muffin/Tokenize --bootstrap --routes
+    
+    bin/cake migrations migrate --plugin Muffin/Tokenize
+
+Cela va activer Tokenize et lancer ses migrations
+

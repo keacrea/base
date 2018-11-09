@@ -19,6 +19,7 @@ $this->assign('page_title', 'Nouveau mot de passe');
 
             <div class="row">
                 <div class="small-12 columns">
+                    <?= $this->Flash->render('auth') ?>
                     <?= $this->Form->create(null,['novalidate'=>true,'autocomplete'=>'off']); ?>
 
                     <?= $this->Form->control('password', ['label'=>'Nouveau mot de passe']);?>

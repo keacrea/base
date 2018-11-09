@@ -22,7 +22,7 @@ $this->assign('page_title', 'Mot de passe oublié');
                         ['novalidate'=>true]
                     ); ?>
 
-                    <?= $this->Form->control('mail', ['label'=>'Adresse email']);?>
+                    <?= $this->Form->control('email', ['label'=>'Adresse email']);?>
 
                 </div>
             </div>

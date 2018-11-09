@@ -23,7 +23,7 @@ $this->Breadcrumbs->add([
                 <div class="row">
                     <div class="small-8 columns">
                         <?= $this->Form->control('name', ['label'=>'Nom']);?>
-                        <?= $this->Form->control('mail', ['label'=>'Adresse email']);?>
+                        <?= $this->Form->control('email', ['label'=>'Adresse email']);?>
                         <?= $this->Form->control('password', ['label'=>'Nouveau mot de passe','value'=>'','autocomplete'=>'off']);?>
                         <?= $this->Form->control('confirm_password', ['label'=>'Confirmer votre mot de passe','value'=>'','type'=>'password']);?>
                     </div>

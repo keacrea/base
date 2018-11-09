@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Mailer\Email;
+use Cake\Mailer\MailerAwareTrait;
 use Cake\Network\Exception\NotFoundException;
 
 
@@ -14,6 +15,9 @@ use Cake\Network\Exception\NotFoundException;
  */
 class UsersController extends AppController
 {
+
+    use MailerAwareTrait;
+
     /**
      * @throws \Exception
      */
@@ -25,7 +29,7 @@ class UsersController extends AppController
 
     public function beforeFilter(Event $event){
         parent::beforeFilter($event);
-        $this->Auth->allow(['login','forgot','resetPassword']);
+        $this->Auth->allow(['login','forgot','resetPassword', 'verify']);
         $this->Cookie->setConfig([
             'expires' => '+1 year'
         ]);
@@ -53,7 +57,7 @@ class UsersController extends AppController
             if($user) {
                 $this->Auth->setUser($user);
                 if ($this->getRequest()->getData('remember') == 1) {
-                    $this->saveToken($this->getRequest()->getData('mail'));
+                    $this->saveToken($this->getRequest()->getData('email'));
                 }
                 $this->redirect(['controller'=>'Users','action'=>'index','prefix'=>'admin']);
 
@@ -64,8 +68,8 @@ class UsersController extends AppController
 
     }
 
-    private function saveToken($mail){
-        $userId = $this->Users->find()->where(['mail'=>$mail])->select(['id'])->first();
+    private function saveToken($email){
+        $userId = $this->Users->find()->where(['email'=>$email])->select(['id'])->first();
         $userId->token = md5(uniqid(rand()));
         if($this->Users->save($userId)){
             $this->Cookie->write('remember',$userId->token);
@@ -97,7 +101,7 @@ class UsersController extends AppController
             'fields' => [
                 'id',
                 'name',
-                'mail'
+                'email'
             ],
             'order' => [
                 'Users.id' => 'ASC'
@@ -180,63 +184,59 @@ class UsersController extends AppController
         $this->viewBuilder()->setLayout('login');
         if($this->getRequest()->is('post')){
 
-            $userId = $this->Users->find()
-                ->where(['mail'=>$this->getRequest()->getData('mail')])
-                ->andWhere(['role IN'=>['superadmin', 'admin']])
-                ->select(['id'])->first();
-            if(is_null($userId)){
+            $user = $this->Users->find()
+                ->select(['id'])
+                ->where([
+                    'email'=>$this->getRequest()->getData('email'),
+                    'role IN'=>['superadmin', 'admin']
+                ])
+                ->first()
+            ;
+            if(is_null($user)){
                 $this->Flash->error('Ce mail n\'est associé à aucun compte');
 
             }else{
-                $token = md5(uniqid().time());
-                $user = $this->Users->newEntity();
-                $user->id = $userId->id;
-                $user->token = $token;
-                if($this->Users->save($user)){
-                    $email = new Email('default');
-                    $email->setFrom(['no-reply@mail.com' => 'Administration'])
-                        ->setTo($this->getRequest()->getData('mail'))
-                        ->setSubject('Mot de passe oublié')
-                        ->setTemplate('default','default')
-                        ->setEmailFormat('html')
-                        ->setViewVars([
-                            'title'=>'Générer un nouveau mot de passe',
-                            'token' => $token,
-                            'id' => $userId->id
-                        ])
-                        ->send();
+                $token = $this->Users->tokenize($user->id);
+                $this->getMailer('User')->send('forgotPassword', [
+                    'no-reply@mail.com',
+                    $this->getRequest()->getData('email'),
+                    $token,
+                ]);
+                $this->Flash->success('Un email vous a été envoyé avec les instructions pour générer votre mot de passe.');
+                $this->redirect(['action' => 'login']);
 
-                    $this->Flash->success('Un email vous a été envoyé avec les instructions pour générer votre mot de passe.');
-                    $this->redirect(['action' => 'login']);
-                }else{
-                    $this->Flash->error('Un problème empèche l\'envoi du mail.');
-                }
             }
         }
     }
 
-    public function resetPassword($user_id, $token){
-        $this->viewBuilder()->setLayout('login');
-        $user = $this->Users->find()
-            ->select(['id','token'])
-            ->where(['Users.id'=>$user_id,'Users.token'=>$token])
-            ->first();
-        if(is_null($user)){
-            $this->Flash->error('Ce lien ne semble pas bon');
-            $this->redirect(['action' => 'forgot']);
-        }
 
+    public function resetPassword($token)
+    {
+
+
+        $this->viewBuilder()->setLayout('login');
         if($this->getRequest()->is('post')){
 
-            $userValid = $this->Users->get($user->id);
             if ($this->getRequest()->is(['patch', 'post', 'put'])) {
-                $userValid->token = '';
-                $userValid = $this->Users->patchEntity($userValid, $this->getRequest()->getData());
-                if ($this->Users->save($userValid)) {
-                    $this->Flash->success('Le mot de passe a bien été réinitialisé.');
-                    return $this->redirect(['action' => 'login']);
-                } else {
-                    $this->Flash->error('Merci de vérifier les informations saisies');
+
+
+                $result = $this->Users->Tokens->verify($token);
+                if($result){
+                    $user = $this->Users->find()
+                        ->where(['id' => $result->foreign_key])
+                        ->first()
+                    ;
+                    $user = $this->Users->patchEntity($user, $this->getRequest()->getData());
+
+                    if ($this->Users->save($user)) {
+                        $this->Flash->success('Le mot de passe a bien été réinitialisé.');
+                        return $this->redirect(['action' => 'login']);
+                    } else {
+                        $this->Flash->error('Merci de vérifier les informations saisies');
+                    }
+                }else{
+                    $this->Flash->error('Ce lien ne semble pas bon');
+                    $this->redirect(['action' => 'forgot']);
                 }
             }
         }

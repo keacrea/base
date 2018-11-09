@@ -52,7 +52,12 @@ custom styles.
 
 ## A faire
 
-Lancer la commende suivante pour créer un user :
+Lancer les migrations et les seeds :
+
+    bin/cake migrations migrate
+    bin/cake migrations seed
+   
+Lancer la commande suivante pour créer un user :
 
     bin/cake user --username-field email
 

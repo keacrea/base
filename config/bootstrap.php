@@ -198,3 +198,5 @@ Type::build('timestamp')
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 
+
+Plugin::load('Blog', ['bootstrap' => false, 'routes' => true]);

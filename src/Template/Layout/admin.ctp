@@ -1,13 +1,16 @@
 <?php
 
 /**
- * @var $this
+ * @var \App\View\AppView $this
  */
 
-$adminTemplates = [
+use Cake\Core\Plugin;
+use Cake\ORM\TableRegistry;$adminTemplates = [
     'checkboxWrapper' => '{{label}}',
 ];
 $this->Form->setTemplates($adminTemplates);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -164,6 +167,7 @@ $this->Form->setTemplates($adminTemplates);
                         </ul>
                     </li>
 
+                    <?= $this->Plugin->loadMenus(); ?>
 
 
                     <li>
